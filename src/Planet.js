@@ -1,37 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { getPlanetFromAPI } from "./actions/planets";
 import Sublist from "./Sublist";
 
-
-function Planet() {
-  const {id} = useParams();
-  const planet = useSelector(st => st.planets[id]);
-  const filmState = useSelector(st => st.films);
-  const characterState = useSelector(st => st.people);
+const Planet = () => {
+  const { id } = useParams();
+  const planet = useSelector((st) => st.planets[id]);
+  const filmState = useSelector((st) => st.films);
+  const characterState = useSelector((st) => st.people);
   const dispatch = useDispatch();
   const missing = !planet;
 
-  useEffect(function() {
-    if (missing) {
-      dispatch(getPlanetFromAPI(id));
-    }
-  }, [missing, id, dispatch]);
+  //triggered when id changes by user accessing new planet page
+  useEffect(
+    function () {
+      //if planet not yet in store
+      if (missing) {
+        dispatch(getPlanetFromAPI(id));
+      }
+    },
+    [missing, id, dispatch]
+  );
 
+  //loading while API call executes
   if (missing) return "loading...";
 
-  const films = planet.films.map(fid => ({
+  //creates films array [ {id, url, displays }, ...]
+  const films = planet.films.map((fid) => ({
     id: fid,
     url: `/films/${fid}`,
-    display: filmState[fid] ? filmState[fid].name : "Unknown"
+    display: filmState[fid] ? filmState[fid].name : "Unknown",
   }));
 
-  const residents = planet.residents.map(pid => ({
+  //creates residents array [ {id, url, displays }, ...]
+  const residents = planet.residents.map((pid) => ({
     id: pid,
     url: `/people/${pid}`,
-    display: characterState[pid] ? characterState[pid].name : "Unknown"
+    display: characterState[pid] ? characterState[pid].name : "Unknown",
   }));
 
   return (
@@ -41,13 +48,19 @@ function Planet() {
         <small className="text-muted float-right">{id}</small>
       </h1>
 
-      <p><b>Climate: </b>{planet.climate}</p>
-      <p><b>Population: </b>{planet.population}</p>
+      <p>
+        <b>Climate: </b>
+        {planet.climate}
+      </p>
+      <p>
+        <b>Population: </b>
+        {planet.population}
+      </p>
 
       <Sublist title="People" items={residents} />
       <Sublist title="Films" items={films} />
     </div>
   );
-}
+};
 
 export default Planet;

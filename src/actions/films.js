@@ -1,8 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 import { LOAD_FILM } from "./types";
 
-
-function getFilmFromAPI(id) {
+const getFilmFromAPI = (id) => {
   return async function (dispatch) {
     const res = await axios.get(`https://swapi.dev/api/films/${id}/`);
     let {
@@ -10,21 +9,20 @@ function getFilmFromAPI(id) {
       director,
       opening_crawl: openingCrawl,
       characters,
-      planets
+      planets,
     } = res.data;
 
-    characters = characters.map(url => url.match(/\d+/)[0]);
-    planets = planets.map(url => url.match(/\d+/)[0]);
+    //removes unnecessary strings from API result so as to create array of numbers
+    characters = characters.map((url) => url.match(/\d+/)[0]);
+    planets = planets.map((url) => url.match(/\d+/)[0]);
 
     const film = { id, name, director, openingCrawl, characters, planets };
     dispatch(gotFilm(film));
   };
-}
+};
 
-
-function gotFilm(film) {
+const gotFilm = (film) => {
   return { type: LOAD_FILM, payload: film };
-}
+};
 
-
-export { getFilmFromAPI }
+export { getFilmFromAPI };
