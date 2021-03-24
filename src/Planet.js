@@ -42,23 +42,24 @@ const Planet = () => {
   }));
 
   return (
-    <div>
-      <h1 className="mt-3 mb-3">
+    <div className="flex flex-col py-3">
+      <h1 className="mx-auto mt-5 py-2 text-gradient-only font-black text-4xl md:text-6xl text-center leading-relaxed tracking-wider">
         {planet.name}
-        <small className="text-muted float-right">{id}</small>
       </h1>
 
-      <p>
-        <b>Climate: </b>
-        {planet.climate}
-      </p>
-      <p>
-        <b>Population: </b>
-        {planet.population}
-      </p>
+      <div className="self-start mx-4">
+        <p className="text-sunglow-300">
+          <b className="text-scarlet-500">Climate: </b>
+          {planet.climate}
+        </p>
+        <p className="text-sunglow-300">
+          <b className="text-scarlet-500">Population: </b>
+          {planet.population}
+        </p>
 
-      <Sublist title="People" items={residents} />
-      <Sublist title="Films" items={films} />
+        <Sublist title="People" items={residents} />
+        <Sublist title="Films" items={films} />
+      </div>
     </div>
   );
 };

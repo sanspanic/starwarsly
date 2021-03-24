@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getFilmFromAPI } from "./actions/films";
 import Sublist from "./Sublist";
 
@@ -12,12 +12,14 @@ const Film = () => {
   const characterState = useSelector((st) => st.people);
   const dispatch = useDispatch();
   const missing = !film;
+  const [isAnimating, setIsAnimating] = useState(false);
 
   //triggered when id changes by user accessing new film page
   useEffect(() => {
     //if film is not in store yet
     if (missing) {
       dispatch(getFilmFromAPI(id));
+      setIsAnimating(true);
     }
   }, [missing, id, dispatch]);
 
@@ -36,22 +38,61 @@ const Film = () => {
     display: characterState[cid] ? characterState[cid].name : "Unknown",
   }));
 
+  const handleEnd = () => {
+    setIsAnimating(false);
+  };
+
   return (
-    <div>
-      <h1 className="mt-3 mb-3">
-        {film.name}
-        <small className="text-muted float-right">{id}</small>
-      </h1>
+    <div className="">
+      <div className="flex flex-col items-center justify-center py-3">
+        <h1 className="mt-5 py-2 pb-4 text-gradient-only font-black text-4xl md:text-6xl text-center leading-relaxed tracking-wider">
+          {film.name}
+        </h1>
+        {isAnimating && (
+          <button
+            onClick={handleEnd}
+            className="text-xs my-5 bg-gradient-yellow inline-flex items-center border-2 border-white py-1 px-3 rounded text-black mt-4 md:mt-0"
+          >
+            Skip Animation
+          </button>
+        )}
+      </div>
 
-      <p className="lead">{film.openingCrawl}</p>
+      <div className="overflow-hidden mx-4 flex flex-col justify-center items-center">
+        {isAnimating && (
+          <>
+            <section class="star-wars">
+              <div onAnimationEnd={handleEnd} class="crawl">
+                <div class="title">
+                  <h1 className="text-center mb-10">{film.name}</h1>
+                </div>
+                <p>{film.openingCrawl}</p>
+              </div>
+            </section>
+          </>
+        )}
+        {!isAnimating && (
+          <div className="self-start text-sunglow-300 max-w-prose">
+            <p className="text-sunglow-300 max-w-prose">{film.openingCrawl}</p>
 
-      <p>
-        <b>Director: </b>
-        {film.director}
-      </p>
+            <p className="py-5">
+              <b className="text-scarlet-500">Director: </b>
+              {film.director}
+            </p>
 
-      <Sublist title="Planets" items={planets} />
-      <Sublist title="People" items={characters} />
+            <Sublist title="Planets" items={planets} />
+            <Sublist title="People" items={characters} />
+            {id < 6 ? (
+              <Link
+                className="text-scarlet-500 font-bold underline"
+                to={`/films/${+id + 1}`}
+              >
+                Explore Next Movie
+              </Link>
+            ) : null}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

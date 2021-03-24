@@ -1,0 +1,83 @@
+.bg-gradient-yellow {
+  background: linear-gradient(135deg, #fad961 0%, #f76b1c 100%);
+}
+
+.bg-gradient-yellow:hover {
+  background: linear-gradient(135deg, #f2d50f 0%, #da0641 100%);
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #f2d50f 0%, #da0641 100%);
+}
+
+.text-gradient {
+  background: -webkit-linear-gradient(135deg, #f2d50f 0%, #da0641 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 2px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(135deg, #f2d50f 0%, #da0641 100%);
+}
+
+.text-gradient-only {
+  background: -webkit-linear-gradient(135deg, #f2d50f 0%, #da0641 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.perspective {
+  perspective: 400px;
+  transform: rotateX(40deg);
+}
+
+.star-wars {
+  /* Flexbox to center the entire element on the screen */
+  display: flex;
+  justify-content: center;
+  /* This is a magic number based on the context in which this snippet is used and affects the perspective */
+  height: 800px;
+  /* This sets allows us to transform the text on a 3D plane, and is somewhat a magic number */
+  perspective: 400px;
+  /* The rest is totally up to personal styling preferences */
+  color: #feda4a;
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 4px;
+  line-height: 130%;
+  text-align: justify;
+  width: 80%;
+}
+
+@media only screen and (max-width: 600px) {
+  .star-wars {
+    font-size: 200%;
+    width: 120%;
+  }
+}
+
+.crawl {
+  /* Position the element so we can adjust the top property in the animation */
+  position: relative;
+  /* Defines the skew origin at the very center when we apply transforms on the animation */
+  transform-origin: 50% 100%;
+  /* Adds the crawl animation, which plays for one minute */
+  animation: crawl 60s linear;
+}
+
+/* We're calling this animation "crawl" */
+@keyframes crawl {
+  0% {
+    /* The element starts below the screen */
+    top: 0;
+    /* Rotate the text 20 degrees but keep it close to the viewer */
+    transform: rotateX(20deg) translateZ(0);
+  }
+  100% {
+    /* This is a magic number, but using a big one to make sure the text is fully off the screen at the end */
+    top: -6000px;
+    /* Slightly increasing the rotation at the end and moving the text far away from the viewer */
+    transform: rotateX(25deg) translateZ(-2500px);
+  }
+}

@@ -41,25 +41,28 @@ const Person = () => {
 
   return (
     <div>
-      <h1 className="my-3">
+      <h1 className="mx-auto mt-5 py-2 text-gradient-only font-black text-4xl md:text-6xl text-center leading-relaxed tracking-wider">
         {person.name}
-        <small className="text-muted float-right">{person.id}</small>
       </h1>
 
-      <p>
-        <b>Gender: </b>
-        {person.gender}
-      </p>
-      <p>
-        <b>Birth Year: </b>
-        {person.birthYear}
-      </p>
-      <p>
-        <b>Homeworld: </b>
-        <Link to={homeworld.url}>{homeworld.display}</Link>
-      </p>
+      <div className="mx-4">
+        <p className="text-sunglow-300">
+          <b className="text-scarlet-500">Gender: </b>
+          {person.gender}
+        </p>
+        <p className="text-sunglow-300">
+          <b className="text-scarlet-500">Birth Year: </b>
+          {person.birthYear}
+        </p>
+        <p className="text-sunglow-300">
+          <b className="text-scarlet-500">Homeworld: </b>
+          <Link className="underline" to={homeworld.url}>
+            {homeworld.display}
+          </Link>
+        </p>
 
-      <Sublist title="Films" items={films} />
+        <Sublist title="Films" items={films} />
+      </div>
     </div>
   );
 };

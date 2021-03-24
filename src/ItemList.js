@@ -4,14 +4,19 @@ import { Link } from "react-router-dom";
 //list of previously explored films
 const ItemList = ({ items, title }) => {
   return (
-    <>
-      <h1 className="my-3">{title}</h1>
+    <div className="flex flex-col items-center">
+      <h1 className="text-gradient-only font-black text-6xl text-center leading-relaxed tracking-wider">
+        {title}
+      </h1>
       {items.length !== 0 ? (
-        <ul style={{ fontSize: "120%" }}>
+        <ul className="text-sunglow-300 underline" style={{ fontSize: "120%" }}>
           {items.map((item) => (
             <li key={item.id}>
               <Link to={item.url}>
-                {item.name} <small className="text-muted">{item.id}</small>
+                {item.name}{" "}
+                <small className="text-white text-sunglow-300">
+                  (/{item.id})
+                </small>
               </Link>
             </li>
           ))}
@@ -19,7 +24,7 @@ const ItemList = ({ items, title }) => {
       ) : (
         <p>You haven't explored any items of this type yet.</p>
       )}
-    </>
+    </div>
   );
 };
 
