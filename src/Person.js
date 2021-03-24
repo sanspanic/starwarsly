@@ -40,7 +40,7 @@ const Person = () => {
   }));
 
   return (
-    <div>
+    <div className="flex flex-col items-start">
       <h1 className="mx-auto mt-5 py-2 text-gradient-only font-black text-4xl md:text-6xl text-center leading-relaxed tracking-wider">
         {person.name}
       </h1>

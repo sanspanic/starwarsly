@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SWLogo from "./Assets/Imgs/SWLogo.png";
 
 const NavBar = () => {
@@ -12,7 +12,11 @@ const NavBar = () => {
             exact
             to="/"
           >
-            <img className="w-20 sm:w-16" src={SWLogo}></img>
+            <img
+              alt="star wars logo"
+              className="w-20 sm:w-16"
+              src={SWLogo}
+            ></img>
             <span> Explorer</span>
           </NavLink>
           <NavLink
@@ -43,9 +47,9 @@ const NavBar = () => {
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="w-4 h-4 ml-1"
               viewBox="0 0 24 24"
             >

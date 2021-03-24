@@ -9,15 +9,17 @@ import Footer from "./Footer";
 
 function App() {
   return (
-    <>
-      <div className="App min-h-screen bg-black flex flex-col justify-between">
-        <BrowserRouter>
+    <div className="App bg-black min-h-screen flex flex-col justify-between">
+      <BrowserRouter>
+        <div className="content">
           <NavBar />
           <Routes />
+        </div>
+        <div className="footer">
           <Footer />
-        </BrowserRouter>
-      </div>
-    </>
+        </div>
+      </BrowserRouter>
+    </div>
   );
 }
 
